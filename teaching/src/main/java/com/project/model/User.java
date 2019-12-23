@@ -2,8 +2,6 @@ package com.project.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,6 +15,7 @@ public class User implements Serializable {
     private String name;
     private String surname;
     private String password;
+    private String role;
     private String monToken = "";
     private Boolean blocked = false;
 
@@ -24,11 +23,12 @@ public User() {
 
 }
 
-public User(String email, String name, String surname, String password) {
+public User(String email, String name, String surname, String password, String role) {
     this.email = email;
     this.name = name;
     this.surname = surname;
     this.password = password;
+    this.role = role;
 }
 
 public String getEmail() {
@@ -63,6 +63,14 @@ public void setPassword(String password) {
     this.password = password;
 }
 
+public String getRole() {
+    return role;
+}
+
+public void setRole(String role) {
+    this.role = role;
+}
+
 public String getMonToken() {
     return monToken;
 }
@@ -82,6 +90,6 @@ public void setBlocked(Boolean blocked) {
 @Override
     public String toString() {
         return "User{" 
-        + "email=" + email + ", name=" + name + ", surname=" + surname + ", password=" + password + ", monToken=" + monToken + ",blocked" + blocked + '}';
+        + "email=" + email + ", name=" + name + ", surname=" + surname + ", password=" + password +  ", role=" + role + ", monToken=" + monToken + ",blocked" + blocked + '}';
     }
 }
