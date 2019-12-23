@@ -1,5 +1,7 @@
 package com.project.security;
 
+import javax.validation.constraints.Email;
+
 import com.project.model.User;
 import com.project.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +19,21 @@ public class CustomUserDetailsService implements UserDetailsService {
  
     @Override
     @Transactional
-    public UserDetails loadUserByLogin(String nameOrEmail)
-            throws EmailNotFoundException {
-        // Let people login with either username or email
-        User user = userRepository.findByLoginOrEmail(nameOrEmail, surnameOrEmail)
+    public UserDetails loadUserByLogin(String email) 
+        throws EmailNotFoundException {
+        // Let people login with either email
+        final User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with name or email : " + surnamenameOrEmail)
+                        new UsernameNotFoundException("User not found with email : " + email)
         );
 
         return CustomUserDetails.create(user);
     }
 
-    @Transactional
-    public UserDetails loadUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-            () -> new ResourceNotFoundException("User", "email", email)
-        );
-
-        return CustomUserDetails.create(user);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+        return null;
     }
+
 }
